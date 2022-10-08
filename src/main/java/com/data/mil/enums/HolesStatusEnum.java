@@ -7,9 +7,9 @@ import lombok.Getter;
 @Getter
 public enum HolesStatusEnum {
 
-    LIGHT("light"),
-    MIDDLE("middle"),
-    HARD("hard");
+    LIGHT("Light"),
+    MIDDLE("Middle"),
+    HARD("Hard");
 
     private final String status;
 
