@@ -1,5 +1,6 @@
 package com.data.mil.model;
 
+import com.data.mil.enums.HolesStatusEnum;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -12,19 +13,19 @@ import java.time.LocalDate;
 @Getter
 @Setter
 @NoArgsConstructor
-public class BloodPressure {
+public class Holes {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "down_pressure", nullable = false)
-    private Long down_pressure;
-
-    @Column(name = "upper_pressure", nullable = false)
-    private Long upper_pressure;
+    @Column(name = "place", nullable = false)
+    private String place;
 
     @Column(name = "record_date", nullable = false)
     private LocalDate recordDate;
+
+    @Column(name = "status", nullable = false)
+    private HolesStatusEnum status;
 
 }

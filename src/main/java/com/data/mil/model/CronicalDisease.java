@@ -12,17 +12,14 @@ import java.time.LocalDate;
 @Getter
 @Setter
 @NoArgsConstructor
-public class BloodPressure {
+public class CronicalDisease {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "down_pressure", nullable = false)
-    private Long down_pressure;
-
-    @Column(name = "upper_pressure", nullable = false)
-    private Long upper_pressure;
+    @Column(name = "disease", nullable = false)
+    private String disease;
 
     @Column(name = "record_date", nullable = false)
     private LocalDate recordDate;
