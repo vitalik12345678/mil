@@ -11,6 +11,7 @@ import java.time.LocalDate;
 @Setter
 @NoArgsConstructor
 @Table(name = "pulse")
+@Entity
 public class Pulse {
 
     @Id
