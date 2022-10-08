@@ -7,8 +7,8 @@ import lombok.Getter;
 @Getter
 public enum AllergicTypeEnum {
 
-    FIRST_TYPE ("first_type"),
-    SECOND_TYPE("second_type");
+    FIRST_TYPE ("firstType"),
+    SECOND_TYPE("secondType");
 
     private final String type;
 
