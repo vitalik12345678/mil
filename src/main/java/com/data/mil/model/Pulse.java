@@ -18,7 +18,7 @@ public class Pulse {
     private Long id;
 
     @Column(name = "value")
-    private  Integer value;
+    private  Long value;
 
     @Column(name = "record_date")
     private LocalDate recordDate;

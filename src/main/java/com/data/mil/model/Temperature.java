@@ -23,5 +23,5 @@ public class Temperature {
     private LocalDate recordDate;
 
     @Column(name = "user_temperature_id")
-    private Integer userTemperatureId;
+    private Long userTemperatureId;
 }

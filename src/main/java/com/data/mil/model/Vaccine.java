@@ -4,26 +4,26 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.time.LocalDate;
 
 @NoArgsConstructor
-@Setter
 @Getter
-@Table(name = "surgery")
-public class Surgery {
+@Setter
+public class Vaccine {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "name")
+    @Column
     private String name;
+
+    @Column(name = "user_immunization_id")
+    private Long userImmunizationId;
 
     @Column(name = "record_date")
     private LocalDate recordDate;
-
-    @Column(name = "user_surgical_id")
-    private Long userSurgicalId;
-
-
 }
