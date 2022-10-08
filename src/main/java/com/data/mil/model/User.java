@@ -46,12 +46,63 @@ public class User {
     @Column(name = "gender")
     private GenderEnum gender;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(
+            orphanRemoval = true,
+            cascade = CascadeType.ALL)
     @JoinColumn(name = "vaccine")
     private List<Vaccine> vaccine;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(
+            orphanRemoval = true,
+            cascade = CascadeType.ALL)
     @JoinColumn(name = "weight")
     private List<Weight> weight;
+
+    @OneToMany(
+            orphanRemoval = true,
+            cascade = CascadeType.ALL
+    )
+    private List<Holes> holesList;
+
+    @OneToMany(
+            orphanRemoval = true,
+            cascade = CascadeType.ALL
+    )
+    private List<Surgery> surgeryList;
+
+    @OneToMany(
+            orphanRemoval = true,
+            cascade = CascadeType.ALL
+    )
+    private List<Temperature> temperatureList;
+
+    @OneToMany(
+            orphanRemoval = true,
+            cascade = CascadeType.ALL
+    )
+    private List<Pulse> pulseList;
+
+    @OneToMany(
+            orphanRemoval = true,
+            cascade = CascadeType.ALL
+    )
+    private List<CronicalDisease> cronicalDiseaseList;
+
+    @OneToMany(
+            orphanRemoval = true,
+            cascade = CascadeType.ALL
+    )
+    private List<BloodPressure> bloodPressureList;
+
+    @OneToMany(
+            orphanRemoval = true,
+            cascade = CascadeType.ALL
+    )
+    private List<AllergicReaction> allergicReactionList;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "role_id",referencedColumnName = "id")
+    private Role role;
+
 
 }

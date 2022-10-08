@@ -94,6 +94,15 @@
         </dependency>
 
 
+                                            <!--Hibernate-->
+
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-core</artifactId>
+            <version>6.1.4.Final</version>
+        </dependency>
+
+
                                             <!--Security and JWT-->
 
     </dependencies>
