@@ -1,11 +1,13 @@
 package com.data.mil.model;
 
+import com.data.mil.enums.GenderEnum;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Table
@@ -45,8 +47,11 @@ public class User {
     private GenderEnum gender;
 
     @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "")
-    private Vaccine vaccine;
+    @JoinColumn(name = "vaccine")
+    private List<Vaccine> vaccine;
 
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "weight")
+    private List<Weight> weight;
 
 }
