@@ -12,7 +12,7 @@ import java.time.LocalDate;
 @Getter
 @Setter
 @NoArgsConstructor
-public class CronicalDisease {
+public class ChronicleDisease {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
