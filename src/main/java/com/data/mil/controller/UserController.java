@@ -1,7 +1,6 @@
 package com.data.mil.controller;
 
 import com.data.mil.dto.CreateUserDTO;
-import com.data.mil.model.User;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;

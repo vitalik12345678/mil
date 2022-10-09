@@ -18,14 +18,9 @@ public class AuthController {
         this.userService = userService;
     }
 
-
     @PostMapping("/signin")
     public ResponseEntity<String> authenticateUser(@RequestBody LoginDTO loginRequest) {
         return ResponseEntity.ok(userService.signin(loginRequest));
     }
 
-    @PostMapping("/signup")
-    public ResponseEntity<UserProfileDTO> registerUser(@RequestBody UserCreateDTO signUpRequest) {
-        return  ResponseEntity.ok( userService.createUser(signUpRequest));
-    }
 }
