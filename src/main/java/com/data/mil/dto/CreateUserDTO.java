@@ -15,7 +15,7 @@ public class CreateUserDTO {
     private String lastName;
     private String email;
     private String password;
-    private String phone;
+    private String phoneNumber;
     private RankEnum rank;
     private GenderEnum gender;
     private LocalDate date;
