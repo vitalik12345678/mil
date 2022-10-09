@@ -86,7 +86,7 @@ public class User {
             orphanRemoval = true,
             cascade = CascadeType.ALL
     )
-    private List<CronicalDisease> cronicalDiseaseList;
+    private List<ChronicleDisease> chronicleDiseaseList;
 
     @OneToMany(
             orphanRemoval = true,
