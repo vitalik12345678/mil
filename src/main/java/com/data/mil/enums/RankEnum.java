@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Getter
 public enum RankEnum {
-    KURSANT("kursant"),
+    kursant("kursant"),
     MOLODSHYY_LEYTENANT("molodshyy leytenant"),
     LEYTENANT("leytenant"),
     STARSHYY_LEYTENANT("starshyy leytenant"),

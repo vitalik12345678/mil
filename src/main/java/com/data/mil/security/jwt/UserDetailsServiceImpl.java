@@ -1,3 +1,4 @@
+/*
 package com.data.mil.security.jwt;
 
 import com.data.mil.model.User;
@@ -28,4 +29,4 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         });
         return UserDetailsImpl.build(user);
     }
-}
+}*/

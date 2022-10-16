@@ -1,3 +1,4 @@
+/*
 package com.data.mil.security.jwt;
 
 import lombok.extern.slf4j.Slf4j;
@@ -20,4 +21,4 @@ public class AuthEntryPoint implements AuthenticationEntryPoint {
         log.error("Unauthorized error: {}", authException.getMessage());
         response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Error: Unauthorized");
     }
-}
+}*/

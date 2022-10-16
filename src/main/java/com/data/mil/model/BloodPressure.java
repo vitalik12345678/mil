@@ -7,7 +7,7 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.time.LocalDate;
 
-@Table
+@Table(name = "blood_pressure",schema = "public")
 @Entity
 @Getter
 @Setter
@@ -19,12 +19,14 @@ public class BloodPressure {
     private Long id;
 
     @Column(name = "down_pressure", nullable = false)
-    private Long down_pressure;
+    private Long downPressure;
 
     @Column(name = "upper_pressure", nullable = false)
-    private Long upper_pressure;
+    private Long upperPressure;
 
     @Column(name = "record_date", nullable = false)
     private LocalDate recordDate;
+
+
 
 }

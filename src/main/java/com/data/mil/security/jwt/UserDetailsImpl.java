@@ -1,3 +1,4 @@
+/*
 package com.data.mil.security.jwt;
 
 import com.data.mil.model.User;
@@ -40,12 +41,14 @@ public class UserDetailsImpl implements UserDetails {
                 user.getEmail(),
                 user.getPassword(),
                 Collections.singleton(authority));
-       /* return new UserDetailsImpl(
+       */
+/* return new UserDetailsImpl(
                 user.getId(),
                 user.getEmail(),
                 user.getPassword(),
                 Collections.singletonList(authority)
-                );*/
+                );*//*
+
     }
 
     @Override
@@ -92,4 +95,4 @@ public class UserDetailsImpl implements UserDetails {
         UserDetailsImpl user = (UserDetailsImpl) o;
         return Objects.equals(id, user.id);
     }
-}
+}*/

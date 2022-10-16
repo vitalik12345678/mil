@@ -1,105 +1,102 @@
 package com.data.mil.model;
 
 import com.data.mil.enums.GenderEnum;
+import com.data.mil.enums.RankEnum;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
 
 @Entity
-@Table
+@Table(name = "users", schema = "public", catalog = "mil")
 @Getter
 @Setter
-@NoArgsConstructor
+@EqualsAndHashCode
+@ToString
 public class User {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
 
-    @Column(name = "first_name", nullable = false)
+    @Basic
+    @Column(name = "first_name")
     private String firstName;
 
-    @Column(name = "last_name", nullable = false)
+    @Basic
+    @Column(name = "last_name")
     private String lastName;
 
-    @Column(name = "email", nullable = false)
+    @Basic
+    @Column(name = "email")
     private String email;
 
-    @Column(name = "password", nullable = false)
+    @Basic
+    @Column(name = "password")
     private String password;
 
-    @Column(name = "birth_date", nullable = false)
+    @Basic
+    @Column(name = "birth_date")
     private LocalDate birthDate;
 
-    @Column(name = "height", nullable = false)
+    @Basic
+    @Column(name = "height")
     private Long height;
 
+    @Basic
     @Column(name = "phone_number")
     private String phoneNumber;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "gender")
     private GenderEnum gender;
 
-    @OneToMany(
-            orphanRemoval = true,
-            cascade = CascadeType.ALL)
-    @JoinColumn(name = "vaccine")
-    private List<Vaccine> vaccine;
+    @Enumerated(EnumType.STRING)
+    @Column (name = "rank")
+    private RankEnum rank;
 
-    @OneToMany(
-            orphanRemoval = true,
-            cascade = CascadeType.ALL)
-    @JoinColumn(name = "weight")
-    private List<Weight> weight;
-
-    @OneToMany(
-            orphanRemoval = true,
-            cascade = CascadeType.ALL
-    )
-    private List<Holes> holesList;
-
-    @OneToMany(
-            orphanRemoval = true,
-            cascade = CascadeType.ALL
-    )
-    private List<Surgery> surgeryList;
-
-    @OneToMany(
-            orphanRemoval = true,
-            cascade = CascadeType.ALL
-    )
-    private List<Temperature> temperatureList;
-
-    @OneToMany(
-            orphanRemoval = true,
-            cascade = CascadeType.ALL
-    )
-    private List<Pulse> pulseList;
-
-    @OneToMany(
-            orphanRemoval = true,
-            cascade = CascadeType.ALL
-    )
-    private List<ChronicleDisease> chronicleDiseaseList;
-
-    @OneToMany(
-            orphanRemoval = true,
-            cascade = CascadeType.ALL
-    )
-    private List<BloodPressure> bloodPressureList;
-
-    @OneToMany(
-            orphanRemoval = true,
-            cascade = CascadeType.ALL
-    )
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    @JoinColumn(name = "user_allergic_id")
     private List<AllergicReaction> allergicReactionList;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "role_id",referencedColumnName = "id")
-    private Role role;
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    @JoinColumn(name = "user_blood_id")
+    private List<BloodPressure> bloodPressureList;
 
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    @JoinColumn(name = "user_hronical_id")
+    private List<ChronicleDisease> chronicleDiseaseList;
 
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    @JoinColumn(name = "user_holes_id")
+    private List<Holes> holesList;
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    @JoinColumn(name = "user_pulse_id")
+    private List<Pulse> pulseList;
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    @JoinColumn(name = "user_surgical_id")
+    private List<Surgery> surgeryList;
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    @JoinColumn(name = "user_temperature_id")
+    private List<Temperature> temperatureList;
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    @JoinColumn(name = "user_immunization_id")
+    private List<Vaccine> vaccineList;
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    @JoinColumn(name = "user_weight_id")
+    private List<Weight> weightList;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "role_id", referencedColumnName = "id", nullable = false)
+    private Role roles;
 }

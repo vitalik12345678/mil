@@ -1,3 +1,4 @@
+/*
 package com.data.mil.configuration;
 
 import com.data.mil.security.jwt.AuthEntryPoint;
@@ -69,4 +70,4 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     }
 
 
-}
+}*/

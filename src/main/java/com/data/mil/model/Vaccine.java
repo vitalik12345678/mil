@@ -20,9 +20,6 @@ public class Vaccine {
     @Column
     private String name;
 
-    @Column(name = "user_immunization_id")
-    private Long userImmunizationId;
-
     @Column(name = "record_date")
     private LocalDate recordDate;
 }

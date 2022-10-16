@@ -10,7 +10,7 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.time.LocalDate;
 
-@Table
+@Table(name = "allergic_reaction", schema = "public", catalog = "mil")
 @Entity
 @Getter
 @Setter
@@ -24,10 +24,10 @@ public class AllergicReaction {
     @Column(nullable = false, name = "name")
     private String name;
 
-    @Column(nullable = false, name = "record_date")
+    @Column(nullable = false, name = "record_data")
     private LocalDate recordDate;
 
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false, name = "type")
     private AllergicTypeEnum type;
-
 }

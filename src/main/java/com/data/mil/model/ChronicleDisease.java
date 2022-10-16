@@ -7,7 +7,7 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.time.LocalDate;
 
-@Table
+@Table(name = "cronical_disease", schema = "public")
 @Entity
 @Getter
 @Setter
