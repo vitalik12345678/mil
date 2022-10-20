@@ -1,4 +1,3 @@
-/*
 package com.data.mil.security.jwt;
 
 import com.data.mil.model.User;
@@ -25,8 +24,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepository.findByEmail(username).orElseThrow( () -> {
-            throw new RuntimeException(USER_DONT_FIND +username); //TODO: Change exception
+            throw new RuntimeException(USER_DONT_FIND + username); //TODO: Change exception
         });
         return UserDetailsImpl.build(user);
     }
-}*/
+}

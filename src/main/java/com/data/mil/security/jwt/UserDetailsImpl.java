@@ -1,4 +1,3 @@
-/*
 package com.data.mil.security.jwt;
 
 import com.data.mil.model.User;
@@ -35,19 +34,18 @@ public class UserDetailsImpl implements UserDetails {
     }
 
     public static UserDetailsImpl build(User user) {
-        SimpleGrantedAuthority authority = new SimpleGrantedAuthority(user.getRole().getName());
+        SimpleGrantedAuthority authority = new SimpleGrantedAuthority("ROLE_"+user.getRole().getName());
         return new UserDetailsImpl(
                 user.getId(), user.getFirstName(), user.getLastName(),
                 user.getEmail(),
                 user.getPassword(),
                 Collections.singleton(authority));
-       */
-/* return new UserDetailsImpl(
-                user.getId(),
-                user.getEmail(),
-                user.getPassword(),
-                Collections.singletonList(authority)
-                );*//*
+     /*return new UserDetailsImpl(
+                    user.getId(),
+                    user.getEmail(),
+                    user.getPassword(),
+                    Collections.singletonList(authority)
+                    );*/
 
     }
 
@@ -95,4 +93,4 @@ public class UserDetailsImpl implements UserDetails {
         UserDetailsImpl user = (UserDetailsImpl) o;
         return Objects.equals(id, user.id);
     }
-}*/
+}

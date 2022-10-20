@@ -2,11 +2,8 @@ package com.data.mil.model;
 
 import com.data.mil.enums.GenderEnum;
 import com.data.mil.enums.RankEnum;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
-
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
@@ -15,8 +12,6 @@ import java.util.List;
 @Table(name = "users", schema = "public", catalog = "mil")
 @Getter
 @Setter
-@EqualsAndHashCode
-@ToString
 public class User {
 
     @Id
@@ -92,11 +87,10 @@ public class User {
     @JoinColumn(name = "user_immunization_id")
     private List<Vaccine> vaccineList;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
-    @JoinColumn(name = "user_weight_id")
+    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Weight> weightList;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne()
     @JoinColumn(name = "role_id", referencedColumnName = "id", nullable = false)
-    private Role roles;
+    private Role role;
 }

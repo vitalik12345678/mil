@@ -20,7 +20,10 @@ public class Weight {
     @Column
     private Long value;
 
+    @ManyToOne
+    @JoinColumn(name = "user_weight_id", referencedColumnName = "id", nullable = false)
+    private User user;
+
     @Column
-    private Long userMassId;
-    LocalDate recordDate;
+    private LocalDate recordDate;
 }

@@ -1,4 +1,3 @@
-/*
 package com.data.mil.configuration;
 
 import com.data.mil.security.jwt.AuthEntryPoint;
@@ -57,11 +56,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     }
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        //http.cors().and().csrf().disable().antMatcher("/**").authorizeRequests();
         http.cors().and().csrf().disable()
                 .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-                .authorizeRequests().antMatchers("/api/auth/**").permitAll()
+                .authorizeRequests()
+                .antMatchers("/api/auth/**").permitAll()
                 .antMatchers("/api/user/**").permitAll()
                 .antMatchers("/api/hobby/**").permitAll()
                 .antMatchers("/api/branch/**").permitAll()
@@ -70,4 +69,4 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     }
 
 
-}*/
+}

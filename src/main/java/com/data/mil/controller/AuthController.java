@@ -1,12 +1,9 @@
 package com.data.mil.controller;
 
+import com.data.mil.dto.JwtDTO;
 import com.data.mil.dto.LoginDTO;
-import com.data.mil.model.User;
-import com.data.mil.repository.UserRepository;
 import com.data.mil.service.UserService;
-import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
@@ -21,9 +18,9 @@ public class AuthController {
         this.userService = userService;
     }
 
-    @GetMapping("/")
-    public User finduser(){
-        return userService.get();
+    @PostMapping("/")
+    public JwtDTO finduser(@RequestBody LoginDTO loginDTO){
+        return userService.signin(loginDTO);
     }
 
 /*    @PostMapping("/signin")
