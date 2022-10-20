@@ -9,8 +9,6 @@ import com.data.mil.model.User;
 
 public interface UserService {
 
- /*   String signin(LoginDTO loginDTO);*/
-
     UserProFileDTO create(CreateUserDTO createUserDTO);
 
     User get();
