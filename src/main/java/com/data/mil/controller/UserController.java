@@ -2,6 +2,7 @@ package com.data.mil.controller;
 
 import com.data.mil.dto.CreateUserDTO;
 import com.data.mil.dto.UserProfileDTO;
+import com.data.mil.model.User;
 import com.data.mil.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -20,8 +21,8 @@ public class UserController {
 
     @PostMapping("/")
     @PreAuthorize("hasAnyRole('medic','admin')")
-    public UserProfileDTO create(@RequestBody CreateUserDTO createUserDTO)
+    public String create(@RequestBody CreateUserDTO createUserDTO)
     {
-        return userService.create(createUserDTO);
+        return userService.get();
     }
 }

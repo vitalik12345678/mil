@@ -7,8 +7,16 @@ import lombok.Getter;
 @Getter
 public enum AllergicTypeEnum {
 
-    firstType ("firstType"),
-    SECOND_TYPE("secondType");
+    PEOPLE ("PEOPLE"),
+    PLANTS("PLANTS"),
+    DRUG("DRUG"),
+    FOOD("FOOD"),
+    INSECT("INSECT"),
+    PET("PET"),
+    LATEX("LATEX"),
+    MOLD("MOLD"),
+    POLLEN("POLLEN"),
+    DUST("DUST");
 
     private final String type;
 

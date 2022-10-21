@@ -11,7 +11,7 @@ public interface UserService {
 
     UserProfileDTO create(CreateUserDTO createUserDTO);
 
-    User get();
+    String get();
 
     JwtDTO signin(LoginDTO loginDTO);
 

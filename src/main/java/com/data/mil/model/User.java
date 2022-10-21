@@ -48,7 +48,7 @@ public class User {
     private String phoneNumber;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "gender")
+    @Column(name = "gender", columnDefinition = "gender_enum")
     private GenderEnum gender;
 
     @Enumerated(EnumType.STRING)

@@ -7,6 +7,8 @@ import com.data.mil.dto.LoginDTO;
 import com.data.mil.dto.UserProfileDTO;
 
 
+import com.data.mil.model.AllergicReaction;
+import com.data.mil.model.Role;
 import com.data.mil.model.User;
 import com.data.mil.repository.AllergicReactionRepository;
 import com.data.mil.repository.RoleRepository;
@@ -16,6 +18,7 @@ import com.data.mil.security.jwt.JwtUtils;
 import com.data.mil.security.jwt.UserDetailsImpl;
 import com.data.mil.service.UserService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -38,6 +41,7 @@ public class UserServiceImpl implements UserService {
     private final AllergicReactionRepository allergicReactionRepository;
     private final PasswordEncoder passwordEncoder;
 
+    @Autowired
     public UserServiceImpl(AuthenticationManager authenticateManager, JwtUtils jwtUtils, UserRepository userRepository, RoleRepository roleRepository, AllergicReactionRepository allergicReactionRepository, PasswordEncoder passwordEncoder) {
         this.authenticateManager = authenticateManager;
         this.jwtUtils = jwtUtils;
@@ -83,21 +87,23 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public User get() {
+    public String get() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
-       /* User user = userRepository.findById(66L).orElseThrow();
-        Role DROleEntity = roleRepository.findByName("ROLE_USER").orElseThrow();
-        Role role = roleRepository.findById(6L).orElseThrow();
-        System.out.println( user.getRoles().getName() );
+        UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
+        Long lon = new Long(67);
+        User user = userRepository.findById(lon).orElseThrow( () ->{throw new RuntimeException("USERBAD");});
+      /*  Role role = roleRepository.findById(6L).orElseThrow();
+        System.out.println( user.getRole().getName() );
         System.out.println(role.getName());
 
         AllergicReaction allergicReaction = allergicReactionRepository.findByName("dasd").orElseThrow();
         System.out.println(allergicReaction.getId());
-        user.setRoles(role);
+        user.setRole(role);
 
         user.getAllergicReactionList().forEach(x->{
             System.out.println(x.getId());
         });*/
-        return null;
+        return user.getPhoneNumber();
     }
 }
