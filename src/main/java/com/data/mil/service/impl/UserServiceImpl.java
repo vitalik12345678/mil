@@ -4,7 +4,7 @@ package com.data.mil.service.impl;
 import com.data.mil.dto.CreateUserDTO;
 import com.data.mil.dto.JwtDTO;
 import com.data.mil.dto.LoginDTO;
-import com.data.mil.dto.UserProFileDTO;
+import com.data.mil.dto.UserProfileDTO;
 
 
 import com.data.mil.model.User;
@@ -65,7 +65,7 @@ public class UserServiceImpl implements UserService {
     //TODO: зберегти юзера алергію хронікал і holes та зберегти вагу
     @Override
     @Transactional
-    public UserProFileDTO create(CreateUserDTO createUserDTO)
+    public UserProfileDTO create(CreateUserDTO createUserDTO)
     {
         User user = new User();
        /* BeanUtils.copyProperties(createUserDTO, user);
