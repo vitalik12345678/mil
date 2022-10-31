@@ -2,17 +2,27 @@ package com.data.mil.model;
 
 import com.data.mil.enums.GenderEnum;
 import com.data.mil.enums.RankEnum;
+import com.data.mil.model_mapper.Convertable;
+import com.data.mil.utils.PostgreSQLEnumType;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.Type;
+import org.hibernate.annotations.TypeDef;
+
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.Collection;
 import java.util.List;
 
 @Entity
 @Table(name = "users", schema = "public", catalog = "mil")
 @Getter
 @Setter
-public class User {
+@TypeDef(
+        name = "pgsql_enum",
+        typeClass = PostgreSQLEnumType.class
+)
+public class User implements Convertable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -48,17 +58,19 @@ public class User {
     private String phoneNumber;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "gender", columnDefinition = "gender_enum")
-    private GenderEnum gender;
-
-    @Enumerated(EnumType.STRING)
     @Column (name = "rank")
+    @Type( type = "pgsql_enum")
     private RankEnum rank;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
-    @JoinColumn(name = "user_allergic_id")
+    @Enumerated(EnumType.STRING)
+    @Column(name = "gender")
+    @Type( type = "pgsql_enum")
+    private GenderEnum gender;
+
+    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     private List<AllergicReaction> allergicReactionList;
 
+    //TODO: change CascadeType
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     @JoinColumn(name = "user_blood_id")
     private List<BloodPressure> bloodPressureList;
@@ -67,9 +79,11 @@ public class User {
     @JoinColumn(name = "user_hronical_id")
     private List<ChronicleDisease> chronicleDiseaseList;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
-    @JoinColumn(name = "user_holes_id")
-    private List<Holes> holesList;
+    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    private List<ChronicleDisease> cronicalDiseasesById;
+
+    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    private List<Holes> holeList;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     @JoinColumn(name = "user_pulse_id")

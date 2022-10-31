@@ -1,5 +1,6 @@
 package com.data.mil.model;
 
+import com.data.mil.model_mapper.Convertable;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -12,7 +13,7 @@ import java.time.LocalDate;
 @Getter
 @Setter
 @NoArgsConstructor
-public class ChronicleDisease {
+public class ChronicleDisease implements Convertable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,5 +24,9 @@ public class ChronicleDisease {
 
     @Column(name = "record_date", nullable = false)
     private LocalDate recordDate;
+
+    @ManyToOne
+    @JoinColumn(name = "user_hronical_id", referencedColumnName = "id", nullable = false)
+    private User user;
 
 }

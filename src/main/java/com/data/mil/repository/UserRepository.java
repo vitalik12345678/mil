@@ -15,4 +15,6 @@ public interface UserRepository extends JpaRepository<User, Long>{
     @Query
     Optional<User> findById(Long id);
 
+    @Query
+    boolean existsByEmailOrPhoneNumber(String email, String phoneNumber);
 }
