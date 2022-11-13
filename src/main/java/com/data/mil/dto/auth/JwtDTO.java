@@ -1,4 +1,4 @@
-package com.data.mil.dto;
+package com.data.mil.dto.auth;
 
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;

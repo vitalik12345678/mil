@@ -1,8 +1,9 @@
-package com.data.mil.dto;
+package com.data.mil.dto.user;
 
-import com.data.mil.enums.GenderEnum;
+import com.data.mil.dto.AllergicReactionDTO;
+import com.data.mil.dto.ChronicleDTO;
+import com.data.mil.dto.HolesDTO;
 import com.data.mil.enums.RankEnum;
-import com.data.mil.model.Holes;
 import com.data.mil.model_mapper.Convertable;
 import lombok.Getter;
 import lombok.Setter;
@@ -12,7 +13,7 @@ import java.util.List;
 
 @Getter
 @Setter
-public class CreateUserDTO implements Convertable {
+public class UserCreateDTO implements Convertable {
 
     private String firstName;
     private String lastName;

@@ -1,13 +1,13 @@
 package com.data.mil.service.impl;
 
 
-import com.data.mil.dto.CreateUserDTO;
-import com.data.mil.dto.JwtDTO;
-import com.data.mil.dto.LoginDTO;
-import com.data.mil.dto.UserProfileDTO;
+import com.data.mil.dto.user.UserCreateDTO;
+import com.data.mil.dto.auth.JwtDTO;
+import com.data.mil.dto.auth.LoginDTO;
+import com.data.mil.dto.user.UserEditDTO;
+import com.data.mil.dto.user.UserProfileDTO;
 
 
-import com.data.mil.enums.GenderEnum;
 import com.data.mil.exception.AlreadyExistsException;
 import com.data.mil.exception.NotExistsException;
 import com.data.mil.model.*;
@@ -46,6 +46,7 @@ public class UserServiceImpl implements UserService {
     private final PasswordEncoder passwordEncoder;
     private final CustomModelMapper customModelMapper;
     private static final String USER_EXIST = "User with same phone %s or email %s already exists ";
+    private static final String USER_NOT_EXISTS = "User doesn't exist";
     private static final String ROLE_NOT_EXIST = "Role doesn't exist";
     private static final String USER = "user";
 
@@ -61,6 +62,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional
     public JwtDTO signin(LoginDTO loginDTO) {
         Authentication  authentication = authenticateManager.authenticate(new UsernamePasswordAuthenticationToken(loginDTO.getEmail(), loginDTO.getPassword()));
         SecurityContextHolder.getContext().setAuthentication(authentication);
@@ -75,32 +77,53 @@ public class UserServiceImpl implements UserService {
         return jwtDTO;
     }
 
+    @Override
+    @Transactional(readOnly = true)
+    public List<UserProfileDTO> getAllPatient() {
+        return userRepository.findAllByRole(findRoleByName(USER))
+                .stream()
+                .map(user -> {
+                    UserProfileDTO userProfileDTO = customModelMapper.convertToDTO(user, new UserProfileDTO());
+                    userProfileDTO.setRole(user.getRole().getName());
+                    return userProfileDTO;
+                })
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    @Transactional
+    public UserProfileDTO updateCurrentUser(UserEditDTO userEditDTO) {
+
+        return null;
+    }
+
     //TODO: зберегти юзера алергію хронікал і holes та зберегти вагу
     @Override
     @Transactional
-    public UserProfileDTO create(CreateUserDTO createUserDTO)
+    public UserProfileDTO create(UserCreateDTO userCreateDTO)
     {
-        if (userRepository.existsByEmailOrPhoneNumber(createUserDTO.getEmail(),createUserDTO.getPhoneNumber())){
-            throw new AlreadyExistsException(String.format(USER_EXIST,createUserDTO.getPhoneNumber(),createUserDTO.getEmail()));
+        if (userRepository.existsByEmailOrPhoneNumber(userCreateDTO.getEmail(), userCreateDTO.getPhoneNumber())){
+            throw new AlreadyExistsException(String.format(USER_EXIST, userCreateDTO.getPhoneNumber(), userCreateDTO.getEmail()));
         }
 
-        User user = customModelMapper.convertToEntity(createUserDTO,new User());
+        User user = customModelMapper.convertToEntity(userCreateDTO,new User());
         user.setRole(findRoleByName(USER));
-        List<AllergicReaction> allergicReactionList = createUserDTO.getAllergicReactionDTO()
+        user.setPassword(passwordEncoder.encode(userCreateDTO.getPassword()));
+        List<AllergicReaction> allergicReactionList = userCreateDTO.getAllergicReactionDTO()
                 .stream()
                 .map( allergicReactionDTO -> {
                   AllergicReaction allergicReaction = customModelMapper.convertToEntity(allergicReactionDTO, new AllergicReaction());
                   allergicReaction.setUser(user);
                   return allergicReaction;
                 }).collect(Collectors.toList());
-        List<Holes> holesList = createUserDTO.getHolesDTO()
+        List<Holes> holesList = userCreateDTO.getHolesDTO()
                 .stream()
                 .map( holesDTO -> {
                    Holes hole =  customModelMapper.convertToEntity(holesDTO, new Holes());
                    hole.setUser(user);
                    return hole;
                 }).collect(Collectors.toList());
-        List<ChronicleDisease> chronicleDiseaseList = createUserDTO.getChronicleDTO()
+        List<ChronicleDisease> chronicleDiseaseList = userCreateDTO.getChronicleDTO()
                 .stream()
                         .map( chronicleDTO -> {
                           ChronicleDisease chronicleDisease =  customModelMapper.convertToEntity(chronicleDTO, new ChronicleDisease());
@@ -111,33 +134,34 @@ public class UserServiceImpl implements UserService {
         user.setHoleList(holesList);
         user.setChronicleDiseaseList(chronicleDiseaseList);
         userRepository.save(user);
-
         return customModelMapper.convertToDTO(user,new UserProfileDTO());
     }
 
     @Override
-    @Transactional
-    public String get() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+    @Transactional(readOnly = true)
+    public UserProfileDTO getCurrentUser() {
 
-        UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
-        Long lon = new Long(67);
-        User user = userRepository.findById(lon).orElseThrow( () ->{throw new RuntimeException("USERBAD");});
-      /*  Role role = roleRepository.findById(6L).orElseThrow();
-        System.out.println( user.getRole().getName() );
-        System.out.println(role.getName());
+        UserDetailsImpl userDetails = (UserDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User user = findUserById(userDetails.getId());
+        UserProfileDTO userProfileDTO = customModelMapper.convertToDTO(user, new UserProfileDTO());
+        userProfileDTO.setRole(user.getRole().getName());
+        return userProfileDTO;
+    }
 
-        AllergicReaction allergicReaction = allergicReactionRepository.findByName("dasd").orElseThrow();
-        System.out.println(allergicReaction.getId());
-        user.setRole(role);
-
-        user.getAllergicReactionList().forEach(x->{
-            System.out.println(x.getId());
-        });*/
-        return user.getPhoneNumber();
+    @Override
+    @Transactional(readOnly = true)
+    public UserProfileDTO getUserById(Long id) {
+        User user = findUserById(id);
+        UserProfileDTO userProfileDTO = customModelMapper.convertToDTO( user , new UserProfileDTO() );
+        userProfileDTO.setRole(user.getRole().getName());
+        return userProfileDTO;
     }
 
     private Role findRoleByName(String name){
         return roleRepository.findByName(name).orElseThrow(() ->{ throw new NotExistsException(ROLE_NOT_EXIST);});
+    }
+
+    private User findUserById(Long id){
+        return userRepository.findById(id).orElseThrow( () -> {throw new NotExistsException(USER_NOT_EXISTS);});
     }
 }

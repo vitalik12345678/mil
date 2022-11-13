@@ -1,7 +1,7 @@
 package com.data.mil.controller;
 
-import com.data.mil.dto.JwtDTO;
-import com.data.mil.dto.LoginDTO;
+import com.data.mil.dto.auth.JwtDTO;
+import com.data.mil.dto.auth.LoginDTO;
 import com.data.mil.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
